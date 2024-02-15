@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "nodemon user-auth.js"
+    "dev": "nodemon app.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
