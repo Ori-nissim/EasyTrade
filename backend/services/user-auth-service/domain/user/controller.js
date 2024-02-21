@@ -1,5 +1,6 @@
 const User = require('./schemas');
-const hashData = require('../../hashData');
+const {hashData, compareData} = require('../../utils/hashing');
+const createToken = require('../../utils/create-token');
 
 const createNewUser = async (data) => { 
     try {
@@ -26,5 +27,29 @@ const createNewUser = async (data) => {
         throw new Error(error.message);
     }
 };
+authenticateUser = async (email, password) => {
+    try {
 
-module.exports = createNewUser;
+        const user = await User.findOne({ email: email});
+        if (!user) {
+            throw new Error("Email not found in the system");
+        }
+
+        const hashedPassword = user.password;
+        const passwordMatch = compareData(hashedPassword, password);
+        if (!passwordMatch)
+            throw new Error("Invalid email or password");
+
+        // create a new token for the user
+        const tokenData = {userId: user._id , email};
+        const token = await createToken(tokenData);
+        user.token = token;
+        return user;
+    }
+    catch (err) {
+        throw(err);
+    }
+
+}
+
+module.exports = {createNewUser, authenticateUser };

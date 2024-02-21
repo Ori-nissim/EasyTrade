@@ -5,6 +5,7 @@ const express = require('express');
 const bodyParser = express.json;
 const cors = require('cors');
 const routes = require('./routes');
+
 // create a new server
 const app = express();  
 app.use(cors());
