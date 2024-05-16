@@ -9,10 +9,11 @@ const portfolioSchema = new Schema({
   
 const tradeSchema = new Schema({
   symbol: { type: String, required: true },
-  transaction: { type: String, enum: ['Buy', 'Sell'], required: true },
+  transactionType: { type: String, enum: ['Buy', 'Sell'], required: true },
   quantity: { type: Number, required: true },
   price: { type: Number, required: true },
   timestamp: { type: Date, default: Date.now },
+  reasonForTransaction: { type: String, required: true},
 });
 
 const userSchema = new Schema({

@@ -13,9 +13,10 @@ const hashData = async(data, saltRounds = 10) => {
 const compareData = async (hashedData, data) => {
     try {
         const match = await bcrypt.compare( data,hashedData);
+        console.log("🚀 ~ compareData ~ match:", match)
         return match;
     } catch (error) {
-        throw error;
+        throw new Error("Error comparing data");
     }
 }
 module.exports =  {hashData, compareData} ;
